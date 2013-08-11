@@ -11,3 +11,9 @@
 *.lai
 *.la
 *.a
+
+#rest of the crap
+*~
+#*
+a.out
+test*
