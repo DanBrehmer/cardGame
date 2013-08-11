@@ -49,8 +49,8 @@ int main()
   int starty = 10;
   printw("Ett test");
   refresh();
-  win1 = create_newwin(height, width , 0, 20, hum);
-  win2 = create_newwin(height, width , 15, 20, cpu);
+  player1 = create_newwin(height, width , 0, 20, hum);
+  player2 = create_newwin(height, width , 15, 20, cpu);
   refresh();
   // print_player(win1, hum, height, width);
                
