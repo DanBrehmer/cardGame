@@ -11,12 +11,14 @@ class Win
 public:
   Win() = default;
   ~Win(){delete win;}
-  WINDOW* win = nullptr;
+  WINDOW* win = nullptr;  // pointer to the window
 
-  int height;
-  int width;
-  int startX;
-  int startY;
+  int height; // height och window
+  int width;  // width of window
+  int startY; // were on screen window will start (y)
+  int startX; // were on screen window will start (x)
+  int yCoord = startY + height / 2; // were in window content will start (y)
+  int xCoord = startX + width  / 2; // were in window content will start (x)
 };
 
 class Gui
@@ -31,15 +33,13 @@ class Gui
 
  private:
 
-  Win* humWin_;
+  Win* humWin_; // holds WINDOW pointer and position info. See Win class.
   Win* cpuWin_;
   Win* deckWin_;
   Win* pileWin_;
 
   void create_new_win_(WINDOW*, int, int, int, int);
   void delete_win_(WINDOW*);
-
-  int y, x, yCoord, xCoord;
 };
 
 #endif

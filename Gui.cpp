@@ -13,8 +13,9 @@ Gui::Gui() : humWin_(new Win), cpuWin_(new Win), deckWin_(new Win), pileWin_(new
   
   cbreak();
   keypad(stdscr, TRUE);
-
-
+  refresh();
+ 
+  // setting the positions for the windows
   humWin_->height = 7;
   humWin_->width = 25;
   humWin_->startX = 20;
@@ -35,10 +36,14 @@ Gui::Gui() : humWin_(new Win), cpuWin_(new Win), deckWin_(new Win), pileWin_(new
   pileWin_->startX = 33;
   pileWin_->startY = 8; 
 
-  //create_new_win_(humWin_->win, humWin_->height, humWin_->width, humWin_->startY, humWin_->startX);
+  // generating new windows at init so print func have someting to delete.
+  // wrefresh() not nessesary
   //create_new_win_(cpuWin_->win, cpuWin_->height, cpuWin_->width, cpuWin_->startY, cpuWin_->startX);
+  //create_new_win_(humWin_->win, humWin_->height, humWin_->width, humWin_->startY, humWin_->startX);
   //create_new_win_(deckWin_->win, deckWin_->height, deckWin_->width, deckWin_->startY, deckWin_->startX);
-  //create_new_win_(pileWin_->win, pileWin_->height, pileWin_->width, pileWin_->startY, pileWin_->startX);  
+  //create_new_win_(pileWin_->win, pileWin_->height, pileWin_->width, pileWin_->startY, pileWin_->startX);
+  
+     
 }
 
 void Gui::create_new_win_(WINDOW* win, int h, int w, int y, int x)
@@ -53,78 +58,75 @@ void Gui::print_player(Player* plr)
 
   if(dynamic_cast<Cpu*>(plr) != nullptr)
     {
+      // delete the old window
       delete_win_(cpuWin_->win);
+
+      // make a new empty window
       create_new_win_(cpuWin_->win, cpuWin_->height, cpuWin_->width, cpuWin_->startY, cpuWin_->startX);
       
-      getyx(cpuWin_->win, y, x);
-      yCoord = y + (cpuWin_->height / 2 - 1);
-      xCoord = x + (cpuWin_->width  / 2 - 2);
-
-      mvwprintw(cpuWin_->win, yCoord, xCoord, "%s", plr->hand_str().c_str());
- 
+      // add content to the new window 
+      mvwprintw(cpuWin_->win, cpuWin_->yCoord, cpuWin_->xCoord, "%s", plr->hand_str().c_str());
+     
       if(plr->open_empty())
 	{
-  
-	  mvwprintw(cpuWin_->win, yCoord + 3, xCoord, "%s", plr->hidden_str().c_str()); 
+          // adding content
+	  mvwprintw(cpuWin_->win, cpuWin_->yCoord + 3, cpuWin_->xCoord, "%s", plr->hidden_str().c_str()); 
 	}
       else
 	{
-	  mvwprintw(cpuWin_->win, yCoord + 2, xCoord, "%s", plr->open_str().c_str());
-	  mvwprintw(cpuWin_->win, yCoord + 3, xCoord, "%s", "XX XX XX");
+          // or this content
+	  mvwprintw(cpuWin_->win, cpuWin_->yCoord + 2, cpuWin_->xCoord, "%s", plr->open_str().c_str());
+	  mvwprintw(cpuWin_->win, cpuWin_->yCoord + 3, cpuWin_->xCoord, "%s", "XX XX XX");
 	}
+
+      // show window with content
       wrefresh(cpuWin_->win);
     }
   else
     {
+      // delete the old window
       delete_win_(humWin_->win);
+
+      // make a new empty window
       create_new_win_(humWin_->win, humWin_->height, humWin_->width, humWin_->startY, humWin_->startX);
       
-      getyx(humWin_->win, y, x);
-      yCoord = y + (humWin_->height / 2 - 1);
-      xCoord = x + (humWin_->width  / 2 - 2);
-
-      mvwprintw(humWin_->win, yCoord, xCoord, "%s", plr->hand_str().c_str());
- 
+      // add content to the new window 
+      mvwprintw(humWin_->win, humWin_->yCoord, humWin_->xCoord, "%s", plr->hand_str().c_str());
+     
       if(plr->open_empty())
 	{
-  
-	  mvwprintw(humWin_->win, yCoord + 3, xCoord, "%s", plr->hidden_str().c_str()); 
+          // adding content
+	  mvwprintw(humWin_->win, humWin_->yCoord + 3, humWin_->xCoord, "%s", plr->hidden_str().c_str()); 
 	}
       else
 	{
-	  mvwprintw(humWin_->win, yCoord + 2, xCoord, "%s", plr->open_str().c_str());
-	  mvwprintw(humWin_->win, yCoord + 3, xCoord, "%s", "XX XX XX");
+          // or this content
+	  mvwprintw(humWin_->win, humWin_->yCoord + 2, humWin_->xCoord, "%s", plr->open_str().c_str());
+	  mvwprintw(humWin_->win, humWin_->yCoord + 3, humWin_->xCoord, "%s", "XX XX XX");
 	}
+
+      // show window with content
       wrefresh(humWin_->win);
     }
-
 }
 void Gui::print_deck(Deck* dp)
 {
   delete_win_(deckWin_->win);
   create_new_win_(deckWin_->win, deckWin_->height, deckWin_->width, deckWin_->startY, deckWin_->startX);
-
-  getyx(humWin_->win, y, x);
-  yCoord = y + (deckWin_->height / 2);
-  xCoord = x + (deckWin_->width  / 2);
-    
-  mvwprintw(deckWin_->win, yCoord, xCoord, "%s", "D D");
-  mvwprintw(deckWin_->win, yCoord + 1, xCoord, "%s", dp->get_size_str().c_str());
-  mvwprintw(deckWin_->win, yCoord + 2, xCoord, "%s", "D D");
+   
+  mvwprintw(deckWin_->win, deckWin_->yCoord, deckWin_->xCoord, "%s", "D D");
+  mvwprintw(deckWin_->win, deckWin_->yCoord + 1, deckWin_->xCoord, "%s", dp->get_size_str().c_str());
+  mvwprintw(deckWin_->win, deckWin_->yCoord + 2, deckWin_->xCoord, "%s", "D D");
   wrefresh(deckWin_->win);
 }
 void Gui::print_pile(Pile* pp)
 {
   delete_win_(pileWin_->win);
   create_new_win_(pileWin_->win, pileWin_->height, pileWin_->width, pileWin_->startY, pileWin_->startX);
-
-  getyx(humWin_->win, y, x);
-  yCoord = y + (pileWin_->height / 2);
-  xCoord = x + (pileWin_->width  / 2);
-    
-  mvwprintw(pileWin_->win, yCoord, xCoord, "%s", "P P");
-  mvwprintw(pileWin_->win, yCoord + 1, xCoord, "%s", pp->get_size_str().c_str());
-  mvwprintw(pileWin_->win, yCoord + 2, xCoord, "%s", "P P");
+   
+  mvwprintw(pileWin_->win, pileWin_->yCoord, pileWin_->xCoord, "%s", "P P");
+  mvwprintw(pileWin_->win, pileWin_->yCoord + 1, pileWin_->xCoord, "%s", pp->get_size_str().c_str());
+  mvwprintw(pileWin_->win, pileWin_->yCoord + 2, pileWin_->xCoord, "%s", "P P");
   wrefresh(pileWin_->win);
 }
 
