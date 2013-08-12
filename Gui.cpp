@@ -38,10 +38,11 @@ Gui::Gui() : humWin_(new Win), cpuWin_(new Win), deckWin_(new Win), pileWin_(new
 
   // generating new windows at init so print func have someting to delete.
   // wrefresh() not nessesary
-  //create_new_win_(cpuWin_->win, cpuWin_->height, cpuWin_->width, cpuWin_->startY, cpuWin_->startX);
-  //create_new_win_(humWin_->win, humWin_->height, humWin_->width, humWin_->startY, humWin_->startX);
-  //create_new_win_(deckWin_->win, deckWin_->height, deckWin_->width, deckWin_->startY, deckWin_->startX);
-  //create_new_win_(pileWin_->win, pileWin_->height, pileWin_->width, pileWin_->startY, pileWin_->startX);
+
+  create_new_win_(cpuWin_->win, cpuWin_->height, cpuWin_->width, cpuWin_->startY, cpuWin_->startX);
+  create_new_win_(humWin_->win, humWin_->height, humWin_->width, humWin_->startY, humWin_->startX);
+  create_new_win_(deckWin_->win, deckWin_->height, deckWin_->width, deckWin_->startY, deckWin_->startX);
+  create_new_win_(pileWin_->win, pileWin_->height, pileWin_->width, pileWin_->startY, pileWin_->startX);
   
      
 }
@@ -130,28 +131,9 @@ void Gui::print_pile(Pile* pp)
   wrefresh(pileWin_->win);
 }
 
-void Gui::delete_win_(WINDOW* local_win)
+void Gui::delete_win_(WINDOW* win)
 {
-  //sparar detta tills jag tar bort bordern.
-
-  /* box(local_win, ' ', ' '); : This won't produce the desired
-   * result of erasing the window. It will leave it's four corners 
-   * and so an ugly remnant of window. 
-   */
-  wborder(local_win, ' ', ' ', ' ',' ',' ',' ',' ',' ');
-  /* The parameters taken are 
-   * 1. win: the window on which to operate
-   * 2. ls: character to be used for the left side of the window 
-   * 3. rs: character to be used for the right side of the window 
-   * 4. ts: character to be used for the top side of the window 
-   * 5. bs: character to be used for the bottom side of the window 
-   * 6. tl: character to be used for the top left corner of the window 
-   * 7. tr: character to be used for the top right corner of the window 
-   * 8. bl: character to be used for the bottom left corner of the window 
-   * 9. br: character to be used for the bottom right corner of the window
-   */
-  delwin(local_win);  
-  wrefresh(local_win);
-  
-
+  wborder(win, ' ', ' ', ' ',' ',' ',' ',' ',' ');
+  wrefresh(win);
+  delwin(win);   
 }
