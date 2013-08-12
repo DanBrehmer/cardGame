@@ -1,13 +1,15 @@
-#indef GUI_H
+#ifndef GUI_H
 #define GUI_H
 #include <ncurses.h>
 #include "Player.h"
 #include "Deck.h"
 #include "Pile.h"
+#include "Cpu.h"
 
 class Win
 {
 public:
+  Win() = default;
   ~Win(){delete win;}
   WINDOW* win = nullptr;
 
@@ -34,7 +36,10 @@ class Gui
   Win* deckWin_;
   Win* pileWin_;
 
-  void create_new_win_(int, int, int, int);
+  void create_new_win_(WINDOW*, int, int, int, int);
+  void delete_win_(WINDOW*);
+
+  int y, x, yCoord, xCoord;
 };
 
 #endif

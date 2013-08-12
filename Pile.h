@@ -2,6 +2,7 @@
 #define PILE_H_INCLUDED
 #include<vector>
 #include "Card.h"
+#include <string>
 
 class Pile
 {
@@ -12,6 +13,7 @@ class Pile
 
   void add_card(const Card&);
   int get_size() const;
+  std::string get_size_str() const;
   void clean_pile();
   Card get_card();
   bool empty() const;

@@ -1,8 +1,9 @@
 #ifndef DECK_H_INCLUDED
 #define DECK_H_INCLUDED
 #include <vector>
-#include<ctime>
-#include<cstdlib>
+#include <ctime>
+#include <cstdlib>
+#include <string>
 #include "Card.h"
 
 
@@ -18,6 +19,7 @@ public:
   Card get_card();
   void show_card(std::ostream&) const;
   int get_size() const;
+  std::string get_size_str();
   bool empty() const;
 
 

@@ -1,4 +1,5 @@
 #include "Pile.h"
+#include <string>
 using namespace std;
 
 void Pile::add_card(const Card& c)
@@ -12,6 +13,10 @@ void Pile::clean_pile()
 int Pile::get_size() const
 {
     return pile_.size();
+}
+string Pile::get_size_str() const
+{
+  return to_string(get_size());
 }
 Card Pile::get_card()
 {

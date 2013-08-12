@@ -1,6 +1,8 @@
 #include "Deck.h"
 #include <stdexcept>
 #include <iostream>
+#include <string>
+
 using namespace std;
 
 Deck::Deck()
@@ -56,6 +58,10 @@ Card Deck::get_card()
 int Deck::get_size() const
 {
     return deck_.size();
+}
+string Deck::get_size_str()
+{
+  return to_string(get_size());
 }
 void Deck::show_card(ostream& os) const
 {

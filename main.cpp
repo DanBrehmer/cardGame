@@ -6,6 +6,7 @@
 #include "Cpu.h"
 #include "Deck.h"
 #include "Pile.h"
+#include "Gui.h"
 
 using namespace std;
 
@@ -18,8 +19,8 @@ using namespace std;
 //  int yCoord, xCoord;
 
 // };
-void print_player(WINDOW*, Player*, int, int);
-WINDOW *create_newwin(int, int, int, int, Player*);
+//void print_player(WINDOW*, Player*, int, int);
+//WINDOW *create_newwin(int, int, int, int, Player*);
 //void print_deck();
 //void print_pile();
 int main()
@@ -28,72 +29,59 @@ int main()
   Pile* pp = new Pile;
   Player* hum = new Human(dp, pp, "Dan");
   Player* cpu = new Cpu(dp, pp);
-  //Gui myGui;
+  Gui* myGui = new Gui();
+  
 
 
- 
-  
-  initscr();
-  
-  cbreak();
-  keypad(stdscr, TRUE);
-  
-  WINDOW* player1;
-  WINDOW* player2;
-  WINDOW* deck;
-  WINDOW* pile;
-  
-  int height = 7;
-  int width = 30;
-  int startx = 20;
-  int starty = 10;
   printw("Ett test");
   refresh();
-  player1 = create_newwin(height, width , 0, 20, hum);
-  player2 = create_newwin(height, width , 15, 20, cpu);
-  refresh();
+  myGui->print_player(cpu);
+  myGui->print_player(hum);
+   myGui->print_deck(dp);
+  myGui->print_pile(pp);
+  //refresh();
   // print_player(win1, hum, height, width);
                
  
   getch();
   endwin();
-  // delete dp;
-  // delete pp;
-  // delete hum;
-  // delete cpu;
-  // delete deck_win;
+   delete dp;
+   delete pp;
+   delete hum;
+   delete cpu;
+   delete myGui;
   // delete pile_win;
   // delete hum_win;
   // delete cpu_win;
   
   return 0;
 }
-void print_player(WINDOW* win, Player* p, int yCoord, int xCoord)
-{
+// void print_player(WINDOW* win, Player* p, int yCoord, int xCoord)
+// {
   
-  mvwprintw(win, yCoord, xCoord, "%s", p->hand_str().c_str());
+//   mvwprintw(win, yCoord, xCoord, "%s", p->hand_str().c_str());
  
-  if(p->open_empty())
-  {
+//   if(p->open_empty())
+//   {
   
-    mvwprintw(win, yCoord + 3, xCoord, "%s", p->hidden_str().c_str()); 
-  }
-  else
-  {
-    mvwprintw(win, yCoord + 2, xCoord, "%s", p->open_str().c_str());
-    mvwprintw(win, yCoord + 3, xCoord, "%s", "XX XX XX");
-  }
-}
-WINDOW* create_newwin(int height, int width, int starty, int startx, Player* hum)
-{	WINDOW *local_win;
-  int y, x;
-  local_win = newwin(height, width, starty, startx);
-  box(local_win, 0 , 0);		/* 0, 0 gives default characters 
-					 * for the vertical and horizontal
-					 * lines			*/
-  getyx(local_win, y, x);
-  print_player(local_win, hum,  y + (height / 2 - 1), x + (width / 2 - 2));
-  wrefresh(local_win);		/* Show that box 		*/
+//     mvwprintw(win, yCoord + 3, xCoord, "%s", p->hidden_str().c_str()); 
+//   }
+//   else
+//   {
+//     mvwprintw(win, yCoord + 2, xCoord, "%s", p->open_str().c_str());
+//     mvwprintw(win, yCoord + 3, xCoord, "%s", "XX XX XX");
+//   }
+// }
+// WINDOW* create_newwin(int height, int width, int starty, int startx, Player* hum)
+// {	WINDOW *local_win;
+//   int y, x;
+//   local_win = newwin(height, width, starty, startx);
+//   box(local_win, 0 , 0);		/* 0, 0 gives default characters 
+// 					 * for the vertical and horizontal
+// 					 * lines			*/
+//   getyx(local_win, y, x);
+//   print_player(local_win, hum,  y + (height / 2 - 1), x + (width / 2 - 2));
+//   wrefresh(local_win);		/* Show that box 		*/
 
-  return local_win;
-}
+//   return local_win;
+// }

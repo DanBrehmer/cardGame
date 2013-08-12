@@ -20,14 +20,14 @@ CCFLAGS += -std=c++11 -pedantic -Wall -Wextra
 #CPPFLAGS += -I$(EXPRESSION) -I$(VARIABLE_TABLE)
 
 # Objektkodsmoduler som ingår i skitgubbe.
-OBJECTS = Player.o Human.o Cpu.o Hand.o Table_Cards.o Card.o Deck.o Pile.o main.o
+OBJECTS = Player.o Human.o Cpu.o Hand.o Table_Cards.o Card.o Deck.o Pile.o Gui.o main.o 
 
 # Huvudmål - skapas med kommandot 'make' eller 'make skitgubbe'.
 skitgubbe: $(OBJECTS) Makefile
 	$(CCC) $(CPPFLAGS) $(CCFLAGS) -o skitgubbe $(OBJECTS) -lncurses
 
 # Delmål (flaggan -c avbryter innan länkning)
-main.o: Player.h Human.h Cpu.h Hand.h Table_Cards.h Deck.h Pile.h main.cpp 
+main.o: Player.h Human.h Cpu.h Hand.h Table_Cards.h Deck.h Pile.h Gui.h main.cpp 
 	$(CCC) $(CPPFLAGS) $(CCFLAGS) -c main.cpp
 
 Player.o: Player.h Hand.h Table_Cards.h Deck.h Pile.h Player.cpp 
@@ -53,6 +53,9 @@ Deck.o: Deck.h Card.h Deck.cpp
 
 Pile.o: Pile.h Card.h Pile.cpp 
 	$(CCC) $(CPPFLAGS) $(CCFLAGS) -c Pile.cpp
+
+Gui.o: Gui.h Deck.h Pile.h Player.h Cpu.h Gui.cpp 
+	$(CCC) $(CPPFLAGS) $(CCFLAGS) -c Gui.cpp
 
 # 'make clean' tar bort objektkodsfiler och 'core' (minnesdump).
 clean:
