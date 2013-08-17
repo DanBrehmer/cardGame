@@ -25,6 +25,8 @@ Gui::Gui() : humWin_(new Win), cpuWin_(new Win), deckWin_(new Win), pileWin_(new
   cpuWin_->width = 25;
   cpuWin_->startX = 20;
   cpuWin_->startY = 0;
+  //cpuWin_->yCoord = cpuWin_->startY + cpuWin_->height / 2; 
+  //cpuWin_->xCoord = cpuWin_->startX + cpuWin_->width / 2;
 
   deckWin_->height = 5;
   deckWin_->width = 7;
@@ -61,23 +63,26 @@ void Gui::print_player(Player* plr)
     {
       // delete the old window
       delete_win_(cpuWin_->win);
-
-      // make a new empty window
-      create_new_win_(cpuWin_->win, cpuWin_->height, cpuWin_->width, cpuWin_->startY, cpuWin_->startX);
-      
-      // add content to the new window 
-      mvwprintw(cpuWin_->win, cpuWin_->yCoord, cpuWin_->xCoord, "%s", plr->hand_str().c_str());
      
+      // make a new empty window
+      cpuWin_->win = newwin(cpuWin_->height, cpuWin_->width, cpuWin_->startY, cpuWin_->startX);
+     
+      box(cpuWin_->win, 0, 0); //just to see what's going on.
+ 
+      // add content to the new window 
+      mvwprintw(cpuWin_->win, 2, 8, "%s", plr->hand_str().c_str());
+
+      //wrefresh(cpuWin_->win);     
       if(plr->open_empty())
 	{
           // adding content
-	  mvwprintw(cpuWin_->win, cpuWin_->yCoord + 3, cpuWin_->xCoord, "%s", plr->hidden_str().c_str()); 
+	  mvwprintw(cpuWin_->win, cpuWin_->startY + 5, cpuWin_->startX, "%s", plr->hidden_str().c_str());
 	}
       else
 	{
           // or this content
-	  mvwprintw(cpuWin_->win, cpuWin_->yCoord + 2, cpuWin_->xCoord, "%s", plr->open_str().c_str());
-	  mvwprintw(cpuWin_->win, cpuWin_->yCoord + 3, cpuWin_->xCoord, "%s", "XX XX XX");
+	  mvwprintw(cpuWin_->win, 4, 8, "%s", plr->open_str().c_str());
+	  mvwprintw(cpuWin_->win, 5, 8, "%s", "XX XX XX");
 	}
 
       // show window with content
@@ -89,21 +94,21 @@ void Gui::print_player(Player* plr)
       delete_win_(humWin_->win);
 
       // make a new empty window
-      create_new_win_(humWin_->win, humWin_->height, humWin_->width, humWin_->startY, humWin_->startX);
-      
+      humWin_->win = newwin(humWin_->height, humWin_->width, humWin_->startY, humWin_->startX);
+      box(humWin_->win, 0, 0);
       // add content to the new window 
-      mvwprintw(humWin_->win, humWin_->yCoord, humWin_->xCoord, "%s", plr->hand_str().c_str());
+      mvwprintw(humWin_->win, 1, 8, "%s", plr->hand_str().c_str());
      
       if(plr->open_empty())
 	{
           // adding content
-	  mvwprintw(humWin_->win, humWin_->yCoord + 3, humWin_->xCoord, "%s", plr->hidden_str().c_str()); 
+	  mvwprintw(humWin_->win, 4, 8, "%s", plr->hidden_str().c_str()); 
 	}
       else
 	{
           // or this content
-	  mvwprintw(humWin_->win, humWin_->yCoord + 2, humWin_->xCoord, "%s", plr->open_str().c_str());
-	  mvwprintw(humWin_->win, humWin_->yCoord + 3, humWin_->xCoord, "%s", "XX XX XX");
+	  mvwprintw(humWin_->win, 3, 8, "%s", plr->open_str().c_str());
+	  mvwprintw(humWin_->win, 4, 8, "%s", "XX XX XX");
 	}
 
       // show window with content
@@ -113,21 +118,23 @@ void Gui::print_player(Player* plr)
 void Gui::print_deck(Deck* dp)
 {
   delete_win_(deckWin_->win);
-  create_new_win_(deckWin_->win, deckWin_->height, deckWin_->width, deckWin_->startY, deckWin_->startX);
-   
-  mvwprintw(deckWin_->win, deckWin_->yCoord, deckWin_->xCoord, "%s", "D D");
-  mvwprintw(deckWin_->win, deckWin_->yCoord + 1, deckWin_->xCoord, "%s", dp->get_size_str().c_str());
-  mvwprintw(deckWin_->win, deckWin_->yCoord + 2, deckWin_->xCoord, "%s", "D D");
+  deckWin_->win = newwin(deckWin_->height, deckWin_->width, deckWin_->startY, deckWin_->startX);
+  box(deckWin_->win, 0, 0);
+ 
+  mvwprintw(deckWin_->win, 1, 1, "%s", "D  D");
+  mvwprintw(deckWin_->win, 2, 2, "%s", dp->get_size_str().c_str());
+  mvwprintw(deckWin_->win, 3, 1, "%s", "D  D");
   wrefresh(deckWin_->win);
 }
 void Gui::print_pile(Pile* pp)
 {
   delete_win_(pileWin_->win);
-  create_new_win_(pileWin_->win, pileWin_->height, pileWin_->width, pileWin_->startY, pileWin_->startX);
-   
-  mvwprintw(pileWin_->win, pileWin_->yCoord, pileWin_->xCoord, "%s", "P P");
-  mvwprintw(pileWin_->win, pileWin_->yCoord + 1, pileWin_->xCoord, "%s", pp->get_size_str().c_str());
-  mvwprintw(pileWin_->win, pileWin_->yCoord + 2, pileWin_->xCoord, "%s", "P P");
+  pileWin_->win = newwin(pileWin_->height, pileWin_->width, pileWin_->startY, pileWin_->startX);
+  box(pileWin_->win, 0, 0);
+ 
+  mvwprintw(pileWin_->win, 1, 1, "%s", "P  P");
+  mvwprintw(pileWin_->win, 2, 2, "%s", pp->get_size_str().c_str());
+  mvwprintw(pileWin_->win, 3, 1, "%s", "P  P");
   wrefresh(pileWin_->win);
 }
 

@@ -17,8 +17,6 @@ public:
   int width;  // width of window
   int startY; // were on screen window will start (y)
   int startX; // were on screen window will start (x)
-  int yCoord = startY + height / 2; // were in window content will start (y)
-  int xCoord = startX + width  / 2; // were in window content will start (x)
 };
 
 class Gui
