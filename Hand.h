@@ -20,6 +20,7 @@ public:
   void sort_hand();
   bool empty() const;
   int get_size() const;
+  std::vector<Card>* get_vec_ptr();
 private:
   std::vector<Card> hand_;
   Deck* deck_;

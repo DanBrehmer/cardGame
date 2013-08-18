@@ -12,8 +12,8 @@ class Deck
 {
 public:
   Deck();
-  Deck(const Deck&) = delete;
-  Deck& operator=(const Deck&) = delete;
+  // Deck(const Deck&) = delete;
+  //Deck& operator=(const Deck&) = delete;
 
   void shuffle();
   Card get_card();

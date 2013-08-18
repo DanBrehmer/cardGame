@@ -59,3 +59,7 @@ bool Hand::empty() const
 {
 return hand_.empty();
 }
+vector<Card>* Hand::get_vec_ptr()
+{
+  return &hand_;
+}

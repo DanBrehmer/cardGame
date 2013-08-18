@@ -74,3 +74,15 @@ bool Player::open_empty() const
 {
   return tc_->open_empty();
 }
+vector<Card>* Player::get_hand_ptr() const
+{
+  return hand_->get_vec_ptr();
+}
+vector<Card>* Player::get_open_ptr() const
+{
+return tc_->get_open_vec_ptr();
+}
+vector<Card>* Player::get_hidden_ptr() const
+{
+return tc_->get_open_vec_ptr();
+}

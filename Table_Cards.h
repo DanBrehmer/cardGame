@@ -35,7 +35,8 @@ public:
   int hidden_size() const;
   std::string table_cards_open_str() const;
   std::string table_cards_hidden_str() const;
-
+  std::vector<Card>* get_open_vec_ptr();
+  std::vector<Card>* get_hidden_vec_ptr();
 protected:
   Table_Cards& operator=(const Table_Cards&) = delete;
 

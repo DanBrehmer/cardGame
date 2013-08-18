@@ -2,11 +2,12 @@
 #define PLAYER_H_INCLUDED
 #include <string>
 #include <iostream>
+#include <vector>
 #include "Hand.h"
 #include "Deck.h"
 #include "Pile.h"
 #include "Table_Cards.h"
-
+#include "Card.h"
 
 
 
@@ -24,6 +25,9 @@ public:
   std::string open_str() const;
   std::string hidden_str() const;
   bool open_empty() const;
+  std::vector<Card>* get_hand_ptr() const;
+  std::vector<Card>* get_open_ptr() const;
+  std::vector<Card>* get_hidden_ptr() const;
   
 protected:
   Player(Deck*, Pile*, const std::string&);

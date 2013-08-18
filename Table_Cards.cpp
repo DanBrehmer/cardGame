@@ -56,3 +56,12 @@ string Table_Cards::table_cards_hidden_str() const
 
   return os.str();
 }
+std::vector<Card>* Table_Cards::get_open_vec_ptr()
+{
+  return &open_;
+}
+std::vector<Card>* Table_Cards::get_hidden_vec_ptr()
+{
+  return &hidden_;
+}
+
