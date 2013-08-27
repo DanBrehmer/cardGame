@@ -24,6 +24,10 @@ Card Pile::get_card()
   pile_.pop_back();
   return tmp;
 }
+string Pile::show_top_card() const
+{
+  return pile_.at(pile_.size() - 1).str();
+}
 bool Pile::empty() const
 {
   return pile_.empty();

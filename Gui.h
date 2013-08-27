@@ -25,10 +25,13 @@ class Gui
   Gui();
   ~Gui();
 
-  void print_player(Player*, char);
+  void print_player(Player*);
   void print_deck(Deck*);
   void print_pile(Pile*);
   void activate_card_set(Player*, int);
+  void get_key_command();
+  int get_key() const;
+  int current_index() const;
 
  private:
 
@@ -41,8 +44,10 @@ class Gui
   bool open_active_ = false;
   bool hidden_active_ = false;
 
-  std::vector<Card>* vec_ptr_ = nullptr;
-  void print_active_card_set(char);
+  const std::vector<Card>* vec_ptr_ = nullptr;
+  void print_active_card_set(Player*);
+  int key_ = 0;
+  int index_ = 0;
 };
 
 #endif

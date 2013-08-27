@@ -33,7 +33,7 @@ string Player::get_name() const
 }
 void Player::lay_card(int index, int amount)
 {
-  if(index > 0 && index <= hand_->get_size())
+  if(index >= 0 && index <= hand_->get_size())
   {
     for(int i = 0; i < amount; ++i)
     {

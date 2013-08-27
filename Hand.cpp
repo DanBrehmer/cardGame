@@ -30,10 +30,10 @@ void Hand::add_card(bool from_deck)
 }
 void Hand::lay_card(unsigned index)
 {
-  if(index > 0 && index <= hand_.size())
+  if(index >= 0 && index <= hand_.size())
   {
-    pile_->add_card(hand_.at(index - 1));
-    hand_.erase(hand_.begin() + index - 1);
+    pile_->add_card(hand_.at(index));
+    hand_.erase(hand_.begin() + index);
   }
 }
 string Hand::hand_str() const

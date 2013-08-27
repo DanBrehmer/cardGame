@@ -16,6 +16,7 @@ class Pile
   std::string get_size_str() const;
   void clean_pile();
   Card get_card();
+  std::string show_top_card() const;
   bool empty() const;
 
 private:
